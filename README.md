@@ -1,6 +1,61 @@
 ![Grafana Logo (Light)](docs/logo-horizontal.png#gh-light-mode-only)
 ![Grafana Logo (Dark)](docs/logo-horizontal-dark.png#gh-dark-mode-only)
 
+This repository represents the version of
+[Grafana](https://github.com/grafana/grafana) that is used as part of
+[Triton](https://github.com/TritonDataCenter/triton).
+
+This fork uses fixes in go dependencies from `jperkin`, to make them build
+on illumos.
+
+## Repository Management
+
+This repository is downstream of
+[Grafana](https://github.com/grafana/grafana).
+
+To better understand and maintain our differences from Grafana, we try to
+manage branches and tags in a specific fashion. First and foremost, all
+branches and tags from the upstream Grafana repository are mirrored here.
+
+Anything that is Triton-specific begins with a `triton/` prefix.
+
+Branches with Triton modifications are named `triton/<version>`, such as
+`triton/11.0.x`. This is a branch that tracks the Grafana
+`v11.0.x` branch. These branches will have all of our patches
+rebased on top of them. Currently, this repository is consumed by
+`triton-grafana`, which includes a submodule for this repository. The
+submodule version will be based on a tag in this repository that uses the form
+`triton/v<version>t<branch release num>`. Note that Grafana uses a branch per
+secondary version number (e.g. `11.0.x`), and assigns multiple tags and releases
+with tertiary version numbers (e.g. `11.0.1`) from each branch. Thus, assuming
+a given Triton release were based on version `11.0.1`, the release tag would be:
+`triton/v11.0.1t1`. If we need to cut another release
+from this upstream release, we would tag it `triton/v11.0.1t2` and continue to
+increment the number after the `t`. Note we use the `t` instead of `r`
+which would more traditionally be used to indicate a revision.  We use
+`t` in case Grafana for some reason wants to use `r` in its version strings.
+
+When it comes time to update to a newer version of Grafana, we would take
+the following steps:
+
+* Ensure that we have pushed all changes from `grafana/grafana` and synced
+  all of our branches and tags.
+* Identify the release tag that corresponds to the point release. For
+  this example, we'll say that's `v11.0.1`.
+* Create a new branch named `triton/<version>` from the tag. In this
+  case we would name the branch `triton/11.0.x` to match Grafana's naming
+  scheme.
+* Rebase all of our patches on to that new branch, removing any patches
+  that are no longer necessary.
+* Test the new version of Grafana.
+* Review and Commit all relevant changes.
+* Create a new tag `triton/v11.0.1t1`.
+* Update [triton-grafana](https://github.com/TritonDataCenter/triton-grafana) to
+  point to the new tag.
+
+![Grafana Logo (Light)](docs/logo-horizontal.png#gh-light-mode-only)
+![Grafana Logo (Dark)](docs/logo-horizontal-dark.png#gh-dark-mode-only)
+
 The open-source platform for monitoring and observability
 
 [![License](https://img.shields.io/github/license/grafana/grafana)](LICENSE)
