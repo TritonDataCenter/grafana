@@ -474,6 +474,7 @@ require github.com/grafana/authlib v0.0.0-20240319083410-9d4a6e3861e5 // @grafan
 
 require (
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
+	github.com/blugelabs/ice/v2 v2.0.1 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/bytedance/sonic v1.9.1 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 // indirect
@@ -519,3 +520,7 @@ exclude github.com/mattn/go-sqlite3 v2.0.3+incompatible
 
 // Use our fork xorm. go.work currently overrides this and points to the local ./pkg/util/xorm directory.
 replace xorm.io/xorm => github.com/grafana/grafana/pkg/util/xorm v0.0.1
+
+replace github.com/blugelabs/bluge => github.com/jperkin/bluge v0.0.0-20221115155924-ffd91b43c395
+
+replace k8s.io/apiserver => github.com/jperkin/apiserver v0.0.0-20240219180422-2d63424797e0
